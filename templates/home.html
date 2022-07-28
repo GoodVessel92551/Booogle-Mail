@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" id="theme" content="#ff6600">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="/static/manifest.json">
+    </head>
+    <body>
+        <div class="top">Booogle Mail</div>
+        <div class="side">
+          <a style="font-size:20px;font-weight:500;border-bottom: .5px solid #3b3b3b;">Menu</a>
+          <a class="sidea" style="border-left: 2px solid #2129b5;">Inbox</a>
+          <a class="sidea">New</a>
+          <a class="sidea">Sent</a>
+            <a class="sidea">How To</a>
+        </div>
+        <div class="mail">
+            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid #3b3b3b;height:35px;">Inbox</a>
+            <a class="maila">
+                <div class="username">Username</div>
+                <div class="about">About</div>
+                <div class="desc">Hello this is an email an it is very long please like booogle so that more people see it thank you.</div>
+            </a>
+            <a class="maila">
+                <div class="username">Username</div>
+                <div class="about">About</div>
+                <div class="desc">Hello this is an email an it is very long please like booogle so that more people see it thank you.</div>
+            </a>
+            <a class="maila">
+                <div class="username">Username</div>
+                <div class="about">About</div>
+                <div class="desc">Hello this is an email an it is very long please like booogle so that more people see it thank you.</div>
+            </a>
+        </div>
+        <div class="read">
+            
+        </div>
+        <script src="/static/app.js"></script>
+    </body>
+</html>

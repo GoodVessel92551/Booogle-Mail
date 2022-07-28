@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="/static/manifest.json">
+    </head>
+    <body>
+        <br><b class="textback" style="font-size:30px;">Welcome To <b>Booogle Mail</b></b><br><br>
+        <b class="textback login">You Have To Log In With Replit For Booogle Mail To Work</b><br><br>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
+        <script>
+            document.querySelector("body").style.setProperty("background-image","url(https://booogle-two.goodvessel92551.repl.co/static/background/rock4.jpg)")
+            ;(function() {
+  var selem = document.currentScript;
+
+  var button = document.createElement('button');
+  button.className = "replit-auth-button";
+  button.textContent = 'Login With Replit';
+
+  if (location.protocol !== 'https:') {
+    var err = document.createElement('div');
+    err.className = "replit-auth-error";
+    err.textContent = 'Replit auth requires https!';
+    selem.parentNode.insertBefore(err, selem);
+  }
+
+  button.onclick = function() {
+    window.addEventListener('message', authComplete);
+
+    var h = 500;
+		var w = 350;
+		var left = (screen.width / 2) - ( w / 2);
+		var top = (screen.height / 2) - (h / 2);
+
+    var authWindow = window.open(
+      'https://repl.it/auth_with_repl_site?domain='+location.host,
+      '_blank',
+      'modal =yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left)
+
+    function authComplete(e) {
+      if (e.data !== 'auth_complete') {
+        return;
+      }
+
+      window.removeEventListener('message', authComplete);
+
+      authWindow.close();
+      window.open("/home","_self")
+      if (selem.attributes.authed.value) {
+        eval(selem.attributes.authed.value);
+      } else {
+        location.reload();
+      }
+    }
+  }
+
+  selem.parentNode.insertBefore(button, selem);
+})();
+            
+        </script>
+        <script src="https://replit.com/public/js/replit-badge.js" theme="orange" defer></script>
+        <script src="/static/app.js"></script>
+    </body>
+</html>
