@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Open+Sans:wght@300&display=swap');
 @media (prefers-color-scheme: dark){
     :root{
-        --border:#1a1a1a;
+        --border:#3b3b3b;
         --light:#fff;
         --dark:#242424;
         --backborder:#292929;
-        --back:#202124;
+        --back:#242424;
         --color:#ff6600;
         --color2:#a8531a;
         --ccc:#ccc;
         --tranback: rgba(41, 41, 41,.4);
-        --tranborder:rgba(58, 61, 110,.4);
+        --tranborder:#5687d6;
         --brodernotran:#2129b5;
     }
 }
@@ -18,7 +18,7 @@
     :root{
         --border:#d4d4d4;
         --light:#242424;
-        --dark:#242424;
+        --dark:#fff;
         --backborder:#f2f2f2;
         --back:#fff;
         --color:#ff6600;
@@ -26,7 +26,7 @@
         --ccc:#ccc;
         --darkback: rgba(41, 41, 41,.6);
         --tranback: rgba(58, 61, 110,.6);
-        --tranborder:rgba(212, 212, 212,.4);
+        --tranborder:#5687d6;
         --brodernotran:#2129b5;
     }
 }
@@ -66,13 +66,14 @@ body{
 }
 
 .side{
+    float:left;
     position:fixed;
     top:25px;
     left:0px;
     background:var(--dark);
     height:100%;
     width:200px;
-    border-right: .5px solid #3b3b3b;
+    border-right: .5px solid var(--border);
 }
 .side a{
     height:35px;
@@ -92,6 +93,7 @@ body{
 }
 
 .top{
+    color:#fff;
     position:fixed;
     top:0px;
     left:0px;
@@ -103,13 +105,14 @@ body{
 }
 
 .mail{
+    float:left;
     position:fixed;
     top:25px;
     left:201px;
     background:var(--dark);
     width:300px;
     height:100%;
-    border-right: .5px solid #3b3b3b;
+    border-right: .5px solid var(--border);
 }
 
 .mail a{
@@ -122,7 +125,7 @@ body{
 
 .maila{
     height:100px;
-    border-bottom: .5px solid #3b3b3b;
+    border-bottom: .5px solid var(--border);
     text-align:left;
     cursor:pointer;
 }
@@ -156,5 +159,83 @@ body{
     left:502px;
     background:var(--dark);
     height:100%;
+
+    width:calc(100% - 502px);
+}
+
+.read a{
+    height:35px;
+    padding:3px;
+    display:block;
+    border-left: 2px solid var(--dark);
+    line-height:35px;
+    transition:.1s all;
+}
+
+.from{
+    padding:5px;
+    float:left;
+}
+.readabout{
+    padding:5px;
+    float:left;
+}
+
+.readdesc{
+    padding:5px;
+    float:left;
+}
+
+.sendto{
+    position:fixed;
+    border:none;
+    color:var(--light);
+    left:0px;
+    height:30px;
     width:100%;
+    background:var(--dark);
+    border-bottom:1px solid var(--border);
+    transition:.1s all;
+}
+
+.sendto:focus{
+    border-bottom:1px solid #2129b5;
+    outline:none;
+}
+
+.message{
+    resize:none;
+    position:fixed;
+    border:none;
+    color:var(--light);
+    left:0px;
+    top:91px;
+    height:calc(100% - 142px);
+    width:100%;
+    background:var(--dark);
+    transition:.1s all;
+}
+.message:focus{
+    outline:none;
+}
+
+.send{
+    cursor:pointer;
+    color:#fff;
+    border-radius:10px;
+    border:none;
+    background:#2129b5;
+    position:fixed;
+    left:0px;
+    bottom:5px;
+    width:99%;
+    height:35px;
+    left: 50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%); 
+    font-weight:600;
+    transition:.1s all;
+}
+.send:hover{
+    background:var(--tranborder)
 }

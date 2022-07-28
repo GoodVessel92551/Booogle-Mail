@@ -10,39 +10,52 @@
         <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel = "icon" href = "https://booogle-two.goodvessel92551.repl.co/static/toplogo.png" type = "image/x-icon">
         <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
+    <div style="position:relative;">
         <div class="top">Booogle Mail</div>
         <div class="side">
-          <a style="font-size:20px;font-weight:500;border-bottom: .5px solid #3b3b3b;">Menu</a>
+          <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Menu</a>
           <a class="sidea" style="border-left: 2px solid #2129b5;">Inbox</a>
-          <a class="sidea">New</a>
+          <a class="sidea" href="/write">New</a>
           <a class="sidea">Sent</a>
             <a class="sidea">How To</a>
+            <a class="sidea">Report Bugs</a>
+            <a class="sidea">Suggest Feedback</a>
+            <a class="sidea">Like</a>
         </div>
-        <div class="mail">
-            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid #3b3b3b;height:35px;">Inbox</a>
-            <a class="maila">
-                <div class="username">Username</div>
-                <div class="about">About</div>
-                <div class="desc">Hello this is an email an it is very long please like booogle so that more people see it thank you.</div>
-            </a>
-            <a class="maila">
-                <div class="username">Username</div>
-                <div class="about">About</div>
-                <div class="desc">Hello this is an email an it is very long please like booogle so that more people see it thank you.</div>
-            </a>
-            <a class="maila">
-                <div class="username">Username</div>
-                <div class="about">About</div>
-                <div class="desc">Hello this is an email an it is very long please like booogle so that more people see it thank you.</div>
-            </a>
+        <div class="mail" id="mail">
+            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);height:35px;">Inbox</a>
+
         </div>
         <div class="read">
-            
+            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Mail</a>
+            <div id="from" class="from">From:</div><br><br>
+            <div id="about" class="readabout">About:</div><br><br><br>
+            <div id="desc" class="readdesc">huqyocruqyeorbiyvqeor</div>
         </div>
+    </div>
+    <script>
+        var emails = ["from1","about1","desc1","from2","about2","desc2","from3","about3","deas3"]
+        var num = 0
+        var mail
+        var i = 0
+        function read(a) {
+            document.getElementById("from").innerHTML = "From: "+emails[3*a]
+            document.getElementById("about").innerHTML = "About: "+emails[3*a+1]
+            document.getElementById("desc").innerHTML = emails[3*a+2]
+        }
+        function make() {
+            mail = document.getElementById("mail")
+            console.log(emails.length+" "+i)
+            while (i != emails.length) {
+                mail.innerHTML += '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'
+                num++
+            }}
+        make()
+    </script>
         <script src="/static/app.js"></script>
     </body>
 </html>
