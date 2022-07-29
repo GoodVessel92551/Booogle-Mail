@@ -38,19 +38,20 @@
         </div>
     </div>
     <script>
-        var emails = ["from1","about1","desc1","from2","about2","desc2","from3","about3","deas3"]
+        emails = {{newmail|tojson}};
+        console.log(emails)
         var num = 0
         var mail
         var i = 0
         function read(a) {
-            document.getElementById("from").innerHTML = "From: "+emails[3*a]
-            document.getElementById("about").innerHTML = "About: "+emails[3*a+1]
-            document.getElementById("desc").innerHTML = emails[3*a+2]
+            document.getElementById("from").innerHTML = "From: "+emails[4*a+1]
+            document.getElementById("about").innerHTML = "About: "+emails[4*a+2]
+            document.getElementById("desc").innerHTML = emails[4*a+3]
         }
         function make() {
             mail = document.getElementById("mail")
-            console.log(emails.length+" "+i)
-            while (i != emails.length) {
+            while (i < emails.length) {
+                i++
                 mail.innerHTML += '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'
                 num++
             }}

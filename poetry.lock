@@ -52,6 +52,14 @@ tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)"
 tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "cloudpickle"]
 
 [[package]]
+name = "better-profanity"
+version = "0.7.0"
+description = "Blazingly fast cleaning swear words (and their leetspeak) in strings"
+category = "main"
+optional = false
+python-versions = "==3.*"
+
+[[package]]
 name = "bidict"
 version = "0.22.0"
 description = "The bidirectional mapping library for Python."
@@ -415,13 +423,14 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "506af85b775fa7c5796e7d4a61c39a1c3daca66a4173fed239b03f9e171c9721"
+content-hash = "0c35db0e60f1d3ba7687413cd0e56334f359218200dc5607889809c31ec41fcf"
 
 [metadata.files]
 aiohttp = []
 aiosignal = []
 async-timeout = []
 attrs = []
+better-profanity = []
 bidict = []
 certifi = []
 charset-normalizer = []

@@ -212,8 +212,8 @@ body{
     border:none;
     color:var(--light);
     left:201px;
-    top:91px;
-    height:calc(100% - 142px);
+    top:133px;
+    height:calc(100% - 184px);
     width:calc(100% - 201px);
     background:var(--dark);
     border-bottom:1px solid var(--border);
@@ -241,4 +241,16 @@ body{
 }
 .send:hover{
     background:var(--tranborder)
+}
+
+.topmake{
+    position:fixed;
+    left:201px;
+    top:25px;
+    height: 35px;
+    padding: 3px;
+    background:var(--dark);
+    line-height:40px;
+    transition:.2s all;
+    width:calc(100% - 201px);
 }

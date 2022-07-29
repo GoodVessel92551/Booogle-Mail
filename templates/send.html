@@ -25,10 +25,13 @@
             <a class="sidea">Suggest Feedback</a>
             <a class="sidea">Like</a>
         </div>
-        <input type="text" placeholder="To:" style="top:25px;" class="sendto">
-        <input type="text" placeholder="About:" style="top:58px;" class="sendto">
-        <textarea placeholder="Message:" class="message" data-gramm="false"></textarea>
-        <button class="send">Send</button>
+        <form method="post">
+            <div class="topmake" style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Make New Mail</div>
+            <input name="to" type="text" placeholder="To:" style="top:67px;" class="sendto" maxlength="20" required>
+            <input name="about" type="text" placeholder="About:" style="top:100px;" class="sendto" maxlength="130" required>
+            <textarea name="desc" placeholder="Message:" class="message" data-gramm="false" maxlength="1500" required></textarea>
+            <button class="send">Send</button>
+        </form>
         <script src="/static/app.js"></script>
     </body>
 </html>
