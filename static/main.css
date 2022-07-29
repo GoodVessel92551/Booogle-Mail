@@ -107,6 +107,7 @@ body{
 }
 
 .mail{
+    overflow-y: scroll;
     float:left;
     position:fixed;
     top:25px;

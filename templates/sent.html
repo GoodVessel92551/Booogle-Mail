@@ -18,9 +18,9 @@
         <div class="top" id="top">Booogle Mail</div>
         <div class="side">
           <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Menu</a>
-          <a class="sidea" style="border-left: 2px solid var(--color);" href="/home">Inbox</a>
+          <a class="sidea" href="/home">Inbox</a>
           <a class="sidea" href="/write">New</a>
-          <a class="sidea" href="sent">Sent</a>
+          <a class="sidea" style="border-left: 2px solid var(--color);" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
             <a class="sidea" href="/howto">How To</a>
             <a class="sidea" href="/feedback">Feedback</a>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <script>
-        emails = {{newmail|tojson}};
+        emails = {{sent|tojson}};
         name = {{name|tojson}}
         document.getElementById("top").innerText = "Booogle Mail - "+name
         console.log(emails)

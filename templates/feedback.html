@@ -18,17 +18,17 @@
         <div class="side">
           <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Menu</a>
           <a class="sidea" href="/home">Inbox</a>
-          <a class="sidea" style="border-left: 2px solid var(--color);" href="/write">New</a>
+          <a class="sidea" href="/write">New</a>
           <a class="sidea" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
             <a class="sidea" href="/howto">How To</a>
-            <a class="sidea" href="/feedback">Feedback</a>
+            <a class="sidea" style="border-left: 2px solid var(--color);" href="/feedback">Feedback</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
         <form method="post">
             <div class="topmake" style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Make New Mail</div>
-            <input name="to" type="text" placeholder="To:" style="top:67px;" class="sendto" maxlength="20" required>
-            <input name="about" type="text" placeholder="About:" style="top:100px;" class="sendto" maxlength="130" required>
+            <input name="to" type="text" placeholder="To:" style="top:67px;" class="sendto" maxlength="20" value="GoodVessel92551" required>
+            <input name="about" type="text" placeholder="About:" style="top:100px;" class="sendto" maxlength="130" value="Feedback/Bug" required>
             <textarea name="desc" placeholder="Message:" class="message" data-gramm="false" maxlength="1500" required></textarea>
             <button class="send">Send</button>
         </form>
