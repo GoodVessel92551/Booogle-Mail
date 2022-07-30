@@ -6,6 +6,7 @@ app = Flask(__name__)
 users = web.UserStore()
 @app.route('/')
 def index():
+    db["num"]=0
     name = web.auth.name
     if name != "":
         return redirect("/home")
@@ -16,23 +17,29 @@ def index():
 @app.route('/home')
 @web.authenticated
 def home():
+    num = db["num"]
     names = db["names"]
     name = web.auth.name
     if name not in names:
-        users.current["mails"]
+        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello"++web.auth.name+"\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can only send mail to people that use Booogle Mail because we don't want mail clogging up the system. And thank you using Booogle Mail!",num]
         users.current["sent"]
+        db["num"]+=1
         db["names"].append(name)
         print(db["names"])
     email = db["mail"]
     newmail = users.current["mails"]
+    print(email)
+    print(users.current["mails"])
     for i in range(len(email)):
         if i < len(email):
-            if email[i] == web.auth.name.lower() and i%4 == 0:
+            if email[i] == web.auth.name.lower() and i%5 == 0:
                 print(email[i])
                 users.current["mails"].append(email[i])
                 users.current["mails"].append(email[i+1])
-                users.current["mails"].append(email[i+2])
+                users.current["mails"].append(email[i+2].title())
                 users.current["mails"].append(email[i+3])
+                users.current["mails"].append(email[i+4])
+                email.pop(i)
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
@@ -62,10 +69,13 @@ def write():
             mail.append(web.auth.name)
             mail.append(request.form["about"])
             mail.append(request.form["desc"])
+            mail.append(db["num"])
             users.current["sent"].append(request.form["to"].lower())
             users.current["sent"].append(web.auth.name)
             users.current["sent"].append(request.form["about"])
             users.current["sent"].append(request.form["desc"])
+            users.current["sent"].append(db["num"])
+            db["num"]=db["num"]+1
         print(mail)
         return redirect("/home")
     else:
@@ -93,6 +103,8 @@ def feedback():
             users.current["sent"].append(web.auth.name)
             users.current["sent"].append(request.form["about"])
             users.current["sent"].append(request.form["desc"])
+            users.current["sent"].append(db["num"])
+            db["num"]+=1
         print(mail)
         return redirect("/home")
     else:
@@ -106,4 +118,29 @@ def clear():
 @app.route('/sent')
 def sent():
     return render_template("sent.html",name = web.auth.name, sent=users.current["sent"])
+
+@app.route('/delete')
+def delete():
+    id = request.args.get("id")
+    print(id)
+    try:
+        int(id)
+    except:
+        return "Something Went Wrong"
+    else:
+        print("Hi")
+        mail = users.current["mails"]
+        for i in range(len(mail)):
+            print(mail[i])
+            if mail[i] == int(id):
+                for j in range(5):
+                    print("hello")
+                    users.current["mails"].pop(i-5)
+        return redirect("/home")
+
+@app.route('/sw.js', methods=['GET'])
+def sw():
+    return current_app.send_static_file('sw.js')
+
+
 web.run(app, port=8080, debug=True)

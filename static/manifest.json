@@ -1,0 +1,45 @@
+{
+  "short_name": "Booogle Mail",
+  "name": "Booogle Mail",
+  "icons": [
+    {
+      "src": "Booogle_Logo_520.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "Booogle_Logo_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "Logo_2_520.png",
+      "type": "image/png",
+      "sizes": "520x520",
+      "purpose": "maskable" 
+    }
+  ],
+
+  "start_url": "/",
+  "background_color": "#202124",
+  "display": "Fullscreen",
+  "scope": "/",
+  "theme_color": "#ff6600",
+  "shortcuts": [
+    {
+      "name": "Booogle Mail",
+      "short_name": "Booogle Mail",
+      "description": "Booogle Mail",
+      "url": "/",
+      "icons": [{ "src": "Booogle_Logo_520.png", "sizes": "512x512" }]
+    }
+  ],
+  "description": "Booogle",
+  "screenshots": [
+    {
+      "src": "Booogle_Logo_520.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

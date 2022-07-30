@@ -10,7 +10,7 @@
         --color2:#a8531a;
         --ccc:#ccc;
         --tranback: rgba(41, 41, 41,.4);
-        --tranborder:#b57448;
+        --tranborder:rgba(255, 102, 0,.4);
         --brodernotran:#ff6600;
     }
 }
@@ -95,7 +95,7 @@ body{
 }
 
 .top{
-    color:#fff;
+    color:#242424;
     position:fixed;
     top:0px;
     left:0px;
@@ -103,7 +103,7 @@ body{
     height:25px;
     background:var(--color);
     line-height:25px;
-    font-weight:600;
+    font-weight:500;
 }
 
 .mail{
@@ -162,7 +162,7 @@ body{
     left:502px;
     background:var(--dark);
     height:100%;
-
+    text-align:left;
     width:calc(100% - 502px);
 }
 
@@ -185,6 +185,7 @@ body{
 }
 
 .readdesc{
+    text-align:left;
     padding:5px;
     float:left;
 }
@@ -254,4 +255,20 @@ body{
     line-height:40px;
     transition:.2s all;
     width:calc(100% - 201px);
+}
+
+.delete{
+    cursor:pointer;
+    border-radius:5px;
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    color:var(--light);
+    padding:5px;
+    background:var(--backborder);
+    font-family: 'Material Icons';
+    transition:.2s all;
+}
+.delete:hover{
+    color:#b80000;
 }

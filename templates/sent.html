@@ -22,7 +22,6 @@
           <a class="sidea" href="/write">New</a>
           <a class="sidea" style="border-left: 2px solid var(--color);" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
-            <a class="sidea" href="/howto">How To</a>
             <a class="sidea" href="/feedback">Feedback</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
@@ -43,12 +42,15 @@
         document.getElementById("top").innerText = "Booogle Mail - "+name
         console.log(emails)
         var num = 0
-        var mail
+        var mail, id
         var i = 0
         function read(a) {
-            document.getElementById("from").innerHTML = "From: "+emails[4*a+1]
-            document.getElementById("about").innerHTML = "About: "+emails[4*a+2]
-            document.getElementById("desc").innerHTML = emails[4*a+3]
+            document.getElementById("from").innerHTML = "From: "+emails[5*a+1]
+            document.getElementById("about").innerHTML = "About: "+emails[5*a+2]
+            desc = emails[5*a+3].replace(/\n/g,"<br>")
+            console.log(desc)
+            document.getElementById("desc").innerHTML = desc
+            id = emails[5*a+4]
         }
         function make() {
             mail = document.getElementById("mail")
@@ -56,6 +58,8 @@
                 i++
                 mail.innerHTML += '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'
                 num++
+                i++
+                read(0)
             }}
         make()
     </script>
