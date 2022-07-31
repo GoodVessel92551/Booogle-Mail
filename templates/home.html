@@ -22,12 +22,14 @@
           <a class="sidea" href="/write">New</a>
           <a class="sidea" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
+            <a class="sidea" href="/users">Block A User</a>
+            <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
             <a class="sidea" href="/feedback">Feedback</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
-        <div class="mail" id="mail">
+        <div class="mail">
             <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);height:35px;">Inbox</a>
-
+            <div id="mail"><div>
         </div>
         <div class="read">
             <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Mail</a>
@@ -35,6 +37,7 @@
             <div id="about" class="readabout"></div><br><br><br>
             <div id="desc" class="readdesc"></div>
             <div id="bin" id="id" onclick="deleteIt()" class="delete">delete</div>
+            <div id="block" id="block" onclick="window.open('/users','_self')" class="block">person_off</div>
         </div>
     </div>
     <script>
@@ -57,7 +60,7 @@
             mail = document.getElementById("mail")
             while (i < emails.length) {
                 i++
-                mail.innerHTML += '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'
+                mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'+ mail.innerHTML
                 num++
                 i++
                 read(0)

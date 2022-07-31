@@ -21,32 +21,28 @@ def home():
     names = db["names"]
     name = web.auth.name
     if name not in names:
-        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello"++web.auth.name+"\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can only send mail to people that use Booogle Mail because we don't want mail clogging up the system. And thank you using Booogle Mail!",num]
-        users.current["sent"]
+        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+"\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can only send mail to people that use Booogle Mail because we don't want mail clogging up the system. And thank you using Booogle Mail!",num]
+        users.current["sent"] = []
+        users.current["blocked"] = []
         db["num"]+=1
         db["names"].append(name)
-        print(db["names"])
     email = db["mail"]
     newmail = users.current["mails"]
-    print(email)
-    print(users.current["mails"])
     for i in range(len(email)):
         if i < len(email):
             if email[i] == web.auth.name.lower() and i%5 == 0:
-                print(email[i])
-                users.current["mails"].append(email[i])
-                users.current["mails"].append(email[i+1])
-                users.current["mails"].append(email[i+2].title())
-                users.current["mails"].append(email[i+3])
-                users.current["mails"].append(email[i+4])
+                if email[i] not in users.current["blocked"]:
+                    users.current["mails"].append(email[i])
+                    users.current["mails"].append(email[i+1])
+                    users.current["mails"].append(email[i+2].title())
+                    users.current["mails"].append(email[i+3])
+                    users.current["mails"].append(email[i+4])
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
-                print(email)
                 db["mail"] = email
-                print(db["mail"])
             else:
                 break
     return render_template("home.html",newmail=users.current["mails"],name = web.auth.name)
@@ -59,7 +55,7 @@ def write():
     mail = db["mail"]
     if request.method == "POST":
         if request.form["to"] not in names:
-            return "User dose not exsite on Booogle Mail"
+            return "User dose not use Booogle Mail"
         elif len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
         if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 10:
@@ -76,7 +72,6 @@ def write():
             users.current["sent"].append(request.form["desc"])
             users.current["sent"].append(db["num"])
             db["num"]=db["num"]+1
-        print(mail)
         return redirect("/home")
     else:
         return render_template("send.html",name = web.auth.name)
@@ -89,7 +84,7 @@ def feedback():
     mail = db["mail"]
     if request.method == "POST":
         if request.form["to"] not in names:
-            return "User dose not exsite on Booogle Mail"
+            return "User dose not use Booogle Mail"
         elif len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
         if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 10:
@@ -99,13 +94,13 @@ def feedback():
             mail.append(web.auth.name)
             mail.append(request.form["about"])
             mail.append(request.form["desc"])
+            mail.append(db["num"])
             users.current["sent"].append(request.form["to"].lower())
             users.current["sent"].append(web.auth.name)
             users.current["sent"].append(request.form["about"])
             users.current["sent"].append(request.form["desc"])
             users.current["sent"].append(db["num"])
-            db["num"]+=1
-        print(mail)
+            db["num"]=db["num"]+1
         return redirect("/home")
     else:
         return render_template("feedback.html",name = web.auth.name)
@@ -122,19 +117,15 @@ def sent():
 @app.route('/delete')
 def delete():
     id = request.args.get("id")
-    print(id)
     try:
         int(id)
     except:
         return "Something Went Wrong"
     else:
-        print("Hi")
         mail = users.current["mails"]
         for i in range(len(mail)):
-            print(mail[i])
             if mail[i] == int(id):
                 for j in range(5):
-                    print("hello")
                     users.current["mails"].pop(i-5)
         return redirect("/home")
 
@@ -142,5 +133,21 @@ def delete():
 def sw():
     return current_app.send_static_file('sw.js')
 
+@app.route('/users', methods=["POST", "GET"])
+def block():
+    if request.method == "POST":
+        block = request.form["block_it"]
+        names = db["names"]
+        if block in names:
+            blocked = users.current["blocked"]
+            if block in blocked:
+                blocked.remove(block)
+            else:
+                blocked.append(block)
+                users.current["blocked"] = blocked
+                return redirect("/home")
+        else:
+            return "User dose not use Booogle Mail"
+    return render_template("block.html",name = web.auth.name, blocked=users.current["blocked"])
 
 web.run(app, port=8080, debug=True)
