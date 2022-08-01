@@ -6,8 +6,8 @@ app = Flask(__name__)
 users = web.UserStore()
 @app.route('/')
 def index():
-    db["num"]=0
     name = web.auth.name
+    #print(db["names"])
     if name != "":
         return redirect("/home")
     else:
@@ -17,34 +17,32 @@ def index():
 @app.route('/home')
 @web.authenticated
 def home():
-    num = db["num"]
+    print(db["mail"])
     names = db["names"]
     name = web.auth.name
     if name not in names:
-        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+"\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can only send mail to people that use Booogle Mail because we don't want mail clogging up the system. And thank you using Booogle Mail!",num]
+        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+"\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can send mail to any one but they will only see it when they login to Booogle Mail. And thank you using Booogle Mail!",db["num"]]
         users.current["sent"] = []
         users.current["blocked"] = []
-        db["num"]+=1
         db["names"].append(name)
     email = db["mail"]
     newmail = users.current["mails"]
+    i = 0
     for i in range(len(email)):
         if i < len(email):
             if email[i] == web.auth.name.lower() and i%5 == 0:
                 if email[i] not in users.current["blocked"]:
                     users.current["mails"].append(email[i])
                     users.current["mails"].append(email[i+1])
-                    users.current["mails"].append(email[i+2].title())
-                    users.current["mails"].append(email[i+3])
-                    users.current["mails"].append(email[i+4])
+                    users.current["mails"].append(profanity.censor(email[i+2].title()))
+                    users.current["mails"].append(profanity.censor(email[i+3]))
+                    users.current["mails"].append(profanity.censor(email[i+4]))
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
                 email.pop(i)
                 db["mail"] = email
-            else:
-                break
     return render_template("home.html",newmail=users.current["mails"],name = web.auth.name)
 
 @app.route('/write', methods=["POST", "GET"])
@@ -54,13 +52,12 @@ def write():
     name = web.auth.name
     mail = db["mail"]
     if request.method == "POST":
-        if request.form["to"] not in names:
-            return "User dose not use Booogle Mail"
-        elif len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
+        if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
         if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 10:
             return "Mail was to long or to short"
         else:
+            mail = db["mail"]
             mail.append(request.form["to"].lower())
             mail.append(web.auth.name)
             mail.append(request.form["about"])
@@ -83,17 +80,15 @@ def feedback():
     name = web.auth.name
     mail = db["mail"]
     if request.method == "POST":
-        if request.form["to"] not in names:
-            return "User dose not use Booogle Mail"
-        elif len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
+        if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
         if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 10:
             return "Mail was to long or to short"
         else:
             mail.append(request.form["to"].lower())
             mail.append(web.auth.name)
-            mail.append(request.form["about"])
-            mail.append(request.form["desc"])
+            mail.append(profanity.censor(request.form["about"]))
+            mail.append(profanity.censor(request.form["desc"]))
             mail.append(db["num"])
             users.current["sent"].append(request.form["to"].lower())
             users.current["sent"].append(web.auth.name)
@@ -124,7 +119,7 @@ def delete():
     else:
         mail = users.current["mails"]
         for i in range(len(mail)):
-            if mail[i] == int(id):
+            if mail[i] == str(id):
                 for j in range(5):
                     users.current["mails"].pop(i-5)
         return redirect("/home")

@@ -47,22 +47,21 @@
         var mail, id
         var i = 0
         function read(a) {
-            document.getElementById("from").innerHTML = "From: "+emails[5*a+1]
+            document.getElementById("from").innerHTML = "To: "+emails[5*a]
             document.getElementById("about").innerHTML = "About: "+emails[5*a+2]
             desc = emails[5*a+3].replace(/\n/g,"<br>")
-            console.log(desc)
             document.getElementById("desc").innerHTML = desc
             id = emails[5*a+4]
         }
         function make() {
             mail = document.getElementById("mail")
             while (i < emails.length) {
-                i++
-                mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'+ mail.innerHTML
+                mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i+1]+'</div><div class="desc">'+emails[i=i+2]+'</div></a>'+ mail.innerHTML
                 num++
-                i++
-                read(0)
-            }}
+                i=i+2
+            }
+            read(num-1)
+        }
         make()
     </script>
         <script src="/static/app.js"></script>
