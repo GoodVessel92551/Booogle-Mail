@@ -25,6 +25,7 @@
             <a class="sidea" href="/users">Block A User</a>
             <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
             <a class="sidea" href="/feedback">Feedback</a>
+            <a class="sidea" href="https://replit.com/@GoodVessel92551">Follow Me</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
         <div class="mail">
@@ -59,8 +60,8 @@
                 mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i+1]+'</div><div class="desc">'+emails[i=i+2]+'</div></a>'+ mail.innerHTML
                 num++
                 i=i+2
+                read(num-1)
             }
-            read(num-1)
         }
         make()
     </script>

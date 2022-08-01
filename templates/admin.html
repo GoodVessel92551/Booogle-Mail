@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -10,7 +9,7 @@
         <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-        <link rel = "icon" href = "static/logo.png" type = "image/x-icon">
+        <link rel = "icon" href = "{{ url_for('static',filename='logo.png')}}" type = "image/x-icon">
         <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
@@ -21,32 +20,21 @@
           <a class="sidea" href="/write">New</a>
           <a class="sidea" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
-            <a class="sidea" style="border-left: 2px solid var(--color);" href="/users">Block A User</a>
+            <a class="sidea" href="/users">Block A User</a>
             <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
             <a class="sidea" href="/feedback">Feedback</a>
             <a class="sidea" href="https://replit.com/@GoodVessel92551">Follow Me</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
-        <div class="block2">
-            <h2>Block/Unblock A User</h2>
-            <form method="post">
-                <input type="text" name="block_it" placeholder="User" class="block_it" required autofocus>
-                <input type="submit" value="Submit" class="submit">
-            </form>
-            <h4>Blocked Users:</h4>
-            <div id="blocked">
-            </div>
+		<div class="data">
+            <a id="usershover">Users<br><br><br><b class="datatext" id="users"></b></a>
         </div>
         <script>
             name = {{name|tojson}};
-            blocked = {{blocked|tojson}};
+            users = {{names|tojson}};
             document.getElementById("top").innerText = "Booogle Mail - "+name
-            people_blocked = document.getElementById("blocked")
-            for (var i = 0;i<blocked.length;i++){
-                console.log(blocked[i])
-                people_blocked.innerHTML = people_blocked.innerHTML+"<li>"+blocked[i]
-            }
+            document.getElementById("users").innerText = users.length;
         </script>
-        <script src="/static/app.js"></script>
+		<script src="static/app.js"></script>
     </body>
 </html>

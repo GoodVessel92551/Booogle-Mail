@@ -25,6 +25,7 @@
             <a class="sidea" href="/users">Block A User</a>
             <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
             <a class="sidea" href="/feedback">Feedback</a>
+            <a class="sidea" href="https://replit.com/@GoodVessel92551">Follow Me</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
         <div class="mail">
@@ -52,9 +53,9 @@
             document.getElementById("from").innerHTML = "From: "+emails[5*a+1]
             document.getElementById("about").innerHTML = "About: "+emails[5*a+2]
             desc = emails[5*a+3].replace(/\n/g,"<br>")
-            console.log(desc)
             document.getElementById("desc").innerHTML = desc
             id = emails[5*a+4]
+            console.log(id)
         }
         function make() {
             mail = document.getElementById("mail")
@@ -63,7 +64,7 @@
                 mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'+ mail.innerHTML
                 num++
                 i++
-                read(0)
+                read(num-1)
             }}
         make()
         function deleteIt() {

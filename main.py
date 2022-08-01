@@ -1,13 +1,12 @@
 from better_profanity import profanity
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
-
 app = Flask(__name__)
 users = web.UserStore()
 @app.route('/')
 def index():
     name = web.auth.name
-    #print(db["names"])
+    #print(len(db["names"]))
     if name != "":
         return redirect("/home")
     else:
@@ -17,36 +16,41 @@ def index():
 @app.route('/home')
 @web.authenticated
 def home():
-    print(db["mail"])
     names = db["names"]
     name = web.auth.name
     if name not in names:
-        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+"\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can send mail to any one but they will only see it when they login to Booogle Mail. And thank you using Booogle Mail!",db["num"]]
+        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+"\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can send mail to any one but they will only see it when they login to Booogle Mail. If you want you can mail me (GoodVessel92551). Put in the replit username NOT A EMAIL ADDRESSES. And thank you using Booogle Mail!",db["num"]]
         users.current["sent"] = []
         users.current["blocked"] = []
         db["names"].append(name)
     email = db["mail"]
     newmail = users.current["mails"]
     i = 0
-    for i in range(len(email)):
-        if i < len(email):
-            if email[i] == web.auth.name.lower() and i%5 == 0:
-                if email[i] not in users.current["blocked"]:
-                    users.current["mails"].append(email[i])
-                    users.current["mails"].append(email[i+1])
-                    users.current["mails"].append(profanity.censor(email[i+2].title()))
-                    users.current["mails"].append(profanity.censor(email[i+3]))
-                    users.current["mails"].append(profanity.censor(email[i+4]))
-                email.pop(i)
-                email.pop(i)
-                email.pop(i)
-                email.pop(i)
-                email.pop(i)
-                db["mail"] = email
+    while i < len(email):
+        if email[i] == web.auth.name.lower():
+            if email[i] not in users.current["blocked"]:
+                users.current["mails"].append(email[i])
+                users.current["mails"].append(email[i+1])
+                users.current["mails"].append(profanity.censor(email[i+2].title()))
+                users.current["mails"].append(profanity.censor(email[i+3]))
+                users.current["mails"].append(profanity.censor(email[i+4]))
+            email.pop(i)
+            email.pop(i)
+            email.pop(i)
+            email.pop(i)
+            email.pop(i)
+            db["mail"] = email
+        print(i)
+        i=i+5
     return render_template("home.html",newmail=users.current["mails"],name = web.auth.name)
 
 @app.route('/write', methods=["POST", "GET"])
 @web.authenticated
+@web.per_user_ratelimit(
+    max_requests = 10,
+    period = 60,
+    get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
+)
 def write():
     names = db["names"]
     name = web.auth.name
@@ -75,6 +79,11 @@ def write():
 
 @app.route('/feedback', methods=["POST", "GET"])
 @web.authenticated
+@web.per_user_ratelimit(
+    max_requests = 10,
+    period = 60,
+    get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
+)
 def feedback():
     names = db["names"]
     name = web.auth.name
@@ -109,6 +118,10 @@ def clear():
 def sent():
     return render_template("sent.html",name = web.auth.name, sent=users.current["sent"])
 
+@app.route('/alive')
+def alive():
+    return "Admin"
+
 @app.route('/delete')
 def delete():
     id = request.args.get("id")
@@ -120,8 +133,11 @@ def delete():
         mail = users.current["mails"]
         for i in range(len(mail)):
             if mail[i] == str(id):
-                for j in range(5):
-                    users.current["mails"].pop(i-5)
+                users.current["mails"].pop(i-4)
+                users.current["mails"].pop(i-4)
+                users.current["mails"].pop(i-4)
+                users.current["mails"].pop(i-4)
+                users.current["mails"].pop(i-4)
         return redirect("/home")
 
 @app.route('/sw.js', methods=['GET'])
@@ -145,4 +161,10 @@ def block():
             return "User dose not use Booogle Mail"
     return render_template("block.html",name = web.auth.name, blocked=users.current["blocked"])
 
-web.run(app, port=8080, debug=True)
+@app.route('/admin')
+def admin():
+    if web.auth.name == "GoodVessel92551":
+        return render_template("admin.html",name = web.auth.name, names=db["names"])
+    else:
+        return redirect("/home")
+web.run(app, port=8080, debug=False)
