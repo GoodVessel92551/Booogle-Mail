@@ -6,7 +6,6 @@ users = web.UserStore()
 @app.route('/')
 def index():
     name = web.auth.name
-    #print(len(db["names"]))
     if name != "":
         return redirect("/home")
     else:
@@ -40,7 +39,6 @@ def home():
             email.pop(i)
             email.pop(i)
             db["mail"] = email
-        print(i)
         i=i+5
     return render_template("home.html",newmail=users.current["mails"],name = web.auth.name)
 
@@ -58,7 +56,7 @@ def write():
     if request.method == "POST":
         if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
-        if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 10:
+        if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 1:
             return "Mail was to long or to short"
         else:
             mail = db["mail"]
@@ -91,7 +89,7 @@ def feedback():
     if request.method == "POST":
         if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
-        if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 10:
+        if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 1:
             return "Mail was to long or to short"
         else:
             mail.append(request.form["to"].lower())
@@ -109,10 +107,6 @@ def feedback():
     else:
         return render_template("feedback.html",name = web.auth.name)
 
-@app.route('/clear')
-def clear():
-    users.current["mails"] = []
-    return redirect("/home")
 
 @app.route('/sent')
 def sent():
@@ -132,12 +126,17 @@ def delete():
     else:
         mail = users.current["mails"]
         for i in range(len(mail)):
-            if mail[i] == str(id):
-                users.current["mails"].pop(i-4)
-                users.current["mails"].pop(i-4)
-                users.current["mails"].pop(i-4)
-                users.current["mails"].pop(i-4)
-                users.current["mails"].pop(i-4)
+            try:
+                mail[i]
+            except:
+                break
+            else:
+                if mail[i] == str(id):
+                    users.current["mails"].pop(i-4)
+                    users.current["mails"].pop(i-4)
+                    users.current["mails"].pop(i-4)
+                    users.current["mails"].pop(i-4)
+                    users.current["mails"].pop(i-4)
         return redirect("/home")
 
 @app.route('/sw.js', methods=['GET'])
@@ -158,9 +157,17 @@ def block():
                 users.current["blocked"] = blocked
                 return redirect("/home")
         else:
-            return "User dose not use Booogle Mail"
+            return "User does not use Booogle Mail"
     return render_template("block.html",name = web.auth.name, blocked=users.current["blocked"])
 
+@app.route('/clear', methods=["POST", "GET"])
+def clear():
+    if request.method == "POST":
+        users.current["mails"] = []
+        return redirect("/home")
+    else:
+        return render_template("clear.html",name = web.auth.name, blocked=users.current["blocked"])
+    
 @app.route('/admin')
 def admin():
     if web.auth.name == "GoodVessel92551":

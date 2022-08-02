@@ -15,23 +15,30 @@
     {
       "src": "Logo_2_520.png",
       "type": "image/png",
-      "sizes": "520x520",
+      "sizes": "512x512",
       "purpose": "maskable" 
     }
   ],
 
   "start_url": "/",
   "background_color": "#202124",
-  "display": "Fullscreen",
+  "display": "minimal-ui",
   "scope": "/",
   "theme_color": "#ff6600",
   "shortcuts": [
     {
-      "name": "Booogle Mail",
-      "short_name": "Booogle Mail",
-      "description": "Booogle Mail",
-      "url": "/",
-      "icons": [{ "src": "Booogle_Logo_520.png", "sizes": "512x512" }]
+      "name": "New Mail",
+      "short_name": "New Mail",
+      "description": "Write New Mail For Booogle Mail",
+      "url": "/write",
+      "icons": [{ "src": "Logo_2_520.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "Inbox",
+      "short_name": "Inbox",
+      "description": "You Booogle Mail Inbox",
+      "url": "/home",
+      "icons": [{ "src": "Logo_2_520.png", "sizes": "512x512" }]
     }
   ],
   "description": "Booogle",

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" id="theme" content="#ff6600">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "static/logo.png" type = "image/x-icon">
+        <link rel="manifest" href="/static/manifest.json">
+    </head>
+    <body>
+        <div class="top" id="top">Booogle Mail</div>
+        <div class="side" style="height:100%;">
+          <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Menu</a>
+          <a class="sidea" href="/home">Inbox</a>
+          <a class="sidea" href="/write">New</a>
+          <a class="sidea" href="sent">Sent</a>
+            <a class="sidea" href="/clear">Clear Inbox</a>
+            <a class="sidea" style="border-left: 2px solid var(--color);" href="/users">Block A User</a>
+            <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
+            <a class="sidea" href="/feedback">Feedback</a>
+            <a class="sidea" href="https://replit.com/@GoodVessel92551">Follow Me</a>
+            <a class="sidea" href="__repl">Like</a>
+        </div>
+        <div class="block2">
+            Are you sure that you want to clear your inbox?
+            <form method="post"><input type="submit" value="Yes" class="submit"></form>
+        </div>
+        <script src="/static/app.js"></script>
+    </body>
+</html>
