@@ -28,12 +28,15 @@
         </div>
 		<div class="data">
             <a id="usershover">Users<br><br><br><b class="datatext" id="users"></b></a>
+            <a id="usershover">Unread Mail<br><br><br><b class="datatext" id="unread"></b></a>
         </div>
         <script>
             name = {{name|tojson}};
             users = {{names|tojson}};
+            mail = {{mail|tojson}};
             document.getElementById("top").innerText = "Booogle Mail - "+name
             document.getElementById("users").innerText = users.length;
+            document.getElementById("unread").innerText = mail;
         </script>
 		<script src="static/app.js"></script>
     </body>

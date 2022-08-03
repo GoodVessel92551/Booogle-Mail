@@ -171,7 +171,8 @@ def clear():
 @app.route('/admin')
 def admin():
     if web.auth.name == "GoodVessel92551":
-        return render_template("admin.html",name = web.auth.name, names=db["names"])
+        return render_template("admin.html",name = web.auth.name, names=db["names"], mail=len(db["mail"])/5)
     else:
         return redirect("/home")
+
 web.run(app, port=8080, debug=False)
