@@ -134,7 +134,7 @@ body{
     border-bottom: .5px solid var(--border);
     text-align:left;
     cursor:pointer;
-    user-select:none;
+    data-select:none;
 }
 .maila:hover{
     background:var(--tranborder);

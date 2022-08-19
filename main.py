@@ -28,17 +28,20 @@ def home():
     while i < len(email):
         if email[i] == web.auth.name.lower():
             if email[i] not in users.current["blocked"]:
-                users.current["mails"].append(email[i])
-                users.current["mails"].append(email[i+1])
-                users.current["mails"].append(profanity.censor(email[i+2].title()))
-                users.current["mails"].append(profanity.censor(email[i+3]))
-                users.current["mails"].append(profanity.censor(email[i+4]))
+                newmail.append(email[i])
+                newmail.append(email[i+1])
+                newmail.append(profanity.censor(email[i+2].title()))
+                newmail.append(profanity.censor(email[i+3]))
+                newmail.append(profanity.censor(email[i+4]))
             email.pop(i)
             email.pop(i)
             email.pop(i)
             email.pop(i)
             email.pop(i)
-            db["mail"] = email
+            if len(email)%5 == 0:
+                db["mail"] = email
+                users.current["mails"] = newmail
+            
         i=i+5
     return render_template("home.html",newmail=users.current["mails"],name = web.auth.name)
 
@@ -52,24 +55,28 @@ def home():
 def write():
     names = db["names"]
     name = web.auth.name
-    mail = db["mail"]
     if request.method == "POST":
         if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
-        if len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 1:
+        elif len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 1:
             return "Mail was to long or to short"
         else:
             mail = db["mail"]
             mail.append(request.form["to"].lower())
             mail.append(web.auth.name)
-            mail.append(request.form["about"])
-            mail.append(request.form["desc"])
+            mail.append(profanity.censor(request.form["about"]))
+            mail.append(profanity.censor(request.form["desc"]))
             mail.append(db["num"])
             users.current["sent"].append(request.form["to"].lower())
             users.current["sent"].append(web.auth.name)
             users.current["sent"].append(request.form["about"])
             users.current["sent"].append(request.form["desc"])
             users.current["sent"].append(db["num"])
+            print(len(mail))
+            if len(mail)%5 == 0:
+                db["mail"] = mail
+            else:
+                return "something went wrong"
             db["num"]=db["num"]+1
         return redirect("/home")
     else:
@@ -85,7 +92,6 @@ def write():
 def feedback():
     names = db["names"]
     name = web.auth.name
-    mail = db["mail"]
     if request.method == "POST":
         if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
@@ -103,6 +109,11 @@ def feedback():
             users.current["sent"].append(request.form["desc"])
             users.current["sent"].append(db["num"])
             db["num"]=db["num"]+1
+            print(len(mail))
+            if len(mail)%5 == 0:
+                db["mail"] = mail
+            else:
+                return "something went wrong"
         return redirect("/home")
     else:
         return render_template("feedback.html",name = web.auth.name)
