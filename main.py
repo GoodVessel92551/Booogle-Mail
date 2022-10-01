@@ -1,8 +1,10 @@
 from better_profanity import profanity
+import re
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
 app = Flask(__name__)
 users = web.UserStore()
+
 @app.route('/')
 def index():
     name = web.auth.name
@@ -13,12 +15,12 @@ def index():
     return render_template("index.html")
 
 @app.route('/home')
-@web.authenticated
+@web.authenticated(login_res="<script>window.open('/','_self')</script>")
 def home():
     names = db["names"]
     name = web.auth.name
     if name not in names:
-        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+"\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like. If you find any bug or want to suggest feedback press the button on the left. You can send mail to any one but they will only see it when they login to Booogle Mail. If you want you can mail me (GoodVessel92551). Put in the replit username NOT A EMAIL ADDRESSES. And thank you using Booogle Mail!",db["num"]]
+        users.current["mails"] = [web.auth.name,"Booogle","Welcome","Hello "+web.auth.name+",\n\nWelcome to Booogle Mail we hope that you enjoy Booogle Mail and if you do make sure to leave a like and follow me. If you find any bug or want to suggest feedback press the button on the left. You can send mail to any one but they will only see it when they login to Booogle Mail. If you want you can mail me (GoodVessel92551). Put in the replit username NOT A EMAIL ADDRESSES. And thank you using Booogle Mail!",db["num"]]
         users.current["sent"] = []
         users.current["blocked"] = []
         db["names"].append(name)
@@ -31,8 +33,8 @@ def home():
                 newmail.append(email[i])
                 newmail.append(email[i+1])
                 newmail.append(profanity.censor(email[i+2].title()))
-                newmail.append(profanity.censor(email[i+3]))
-                newmail.append(profanity.censor(email[i+4]))
+                newmail.append(re.sub("<.*?>","",profanity.censor(email[i+3])))
+                newmail.append(re.sub("<.*?>","",profanity.censor(email[i+4])))
             email.pop(i)
             email.pop(i)
             email.pop(i)
@@ -46,7 +48,7 @@ def home():
     return render_template("home.html",newmail=users.current["mails"],name = web.auth.name)
 
 @app.route('/write', methods=["POST", "GET"])
-@web.authenticated
+@web.authenticated(login_res="<script>window.open('/','_self')</script>")
 @web.per_user_ratelimit(
     max_requests = 10,
     period = 60,
@@ -56,6 +58,8 @@ def write():
     names = db["names"]
     name = web.auth.name
     if request.method == "POST":
+        if len(db["mail"])%5 != 0:
+            db["mail"] = []
         if len(request.form["about"]) > 140 or len(request.form["about"]) < 1:
             return "Mail was to long or to short"
         elif len(request.form["desc"]) > 1500 or len(request.form["desc"]) < 1:
@@ -83,7 +87,7 @@ def write():
         return render_template("send.html",name = web.auth.name)
 
 @app.route('/feedback', methods=["POST", "GET"])
-@web.authenticated
+@web.authenticated(login_res="<script>window.open('/','_self')</script>")
 @web.per_user_ratelimit(
     max_requests = 10,
     period = 60,

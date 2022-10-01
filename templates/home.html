@@ -18,20 +18,20 @@
         <div class="top" id="top">Booogle Mail</div>
         <div class="side">
           <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Menu</a>
-          <a class="sidea" style="border-left: 2px solid var(--color);" href="/home">Inbox</a>
+          <a class="sidea" style="outline:1px solid var(--color);" href="/home">Inbox</a>
           <a class="sidea" href="/write">New</a>
           <a class="sidea" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
             <a class="sidea" href="/users">Block A User</a>
-            <a class="sidea" href="https://replit.com/@GoodVessel92551/Booogle-Write"><span style="color:#a60000;font-weight:600;">New!</span> Booogle Write</a>
+            <a class="sidea" href="https://replit.com/@GoodVessel92551/ReplTask"><span style="color:var(--red);font-weight:600;">New!</span> ReplTask</a>
             <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
             <a class="sidea" href="/feedback">Feedback</a>
             <a class="sidea" href="https://replit.com/@GoodVessel92551">Follow Me</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
-        <div class="mail">
-            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);height:35px;">Inbox</a>
-            <div id="mail"><div>
+        <div class="mail2">
+            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);height:35px;" class="title">Inbox</a>
+            <div class="mail" id="mail"><div>
         </div>
         <div class="read">
             <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Mail</a>
@@ -46,23 +46,54 @@
         emails = {{newmail|tojson}};
         name = {{name|tojson}}
         document.getElementById("top").innerText = "Booogle Mail - "+name
-        console.log(emails)
         var num = 0
         var mail, id
         var i = 0
+        var delay = (emails.length/5)*0.3+0.3
         function read(a) {
-            document.getElementById("from").innerHTML = "From: "+emails[5*a+1]
-            document.getElementById("about").innerHTML = "About: "+emails[5*a+2]
-            desc = emails[5*a+3].replace(/\n/g,"<br>")
-            document.getElementById("desc").innerHTML = desc
+            document.getElementById("from").innerText = "From: "+emails[5*a+1]
+            document.getElementById("about").innerText = "About: "+emails[5*a+2]
+            desc = emails[5*a+3]
+            document.getElementById("desc").innerText = desc
             id = emails[5*a+4]
-            console.log(id)
         }
         function make() {
             mail = document.getElementById("mail")
             while (i < emails.length) {
                 i++
-                mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i++]+'</div><div class="desc">'+emails[i++]+'</div></a>'+ mail.innerHTML
+                var maila = document.createElement('button')
+                var username = document.createElement('div')
+                var about = document.createElement('div')
+                var desc = document.createElement('div')
+                maila.id = num
+                username.id = num
+                about.id = num
+                desc.id = num
+                maila.style.animationDelay = delay+"s"
+                delay -= 0.3
+                maila.classList.add("maila")
+                username.classList.add("username")
+                about.classList.add("about")
+                desc.classList.add("desc")
+                username.innerText = emails[i++]
+                about.innerText = emails[i++]
+                desc.innerText = emails[i++]
+                maila.appendChild(username)
+                maila.appendChild(about)
+                maila.appendChild(desc)
+                mail.insertBefore(maila,mail.children[0])
+				maila.addEventListener("click",(e) => {
+                    read(e.target.id)
+				})
+				username.addEventListener("click",(e) => {
+                    read(e.target.id)
+				})
+				about.addEventListener("click",(e) => {
+                    read(e.target.id)
+				})
+				desc.addEventListener("click",(e) => {
+                    read(e.target.id)
+				})
                 num++
                 i++
                 read(num-1)
@@ -74,6 +105,6 @@
             }
         }
     </script>
-        <script src="/static/app.js"></script>
-    </body>
+    <script src="/static/app.js"></script>
+</body>
 </html>

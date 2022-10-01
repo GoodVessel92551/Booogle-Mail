@@ -1,28 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Open+Sans:wght@300&display=swap');
 @media (prefers-color-scheme: dark){
     :root{
-        --border:#3b3b3b;
+        --border:#303030;
+        --border2:#404040;
         --light:#fff;
         --dark:#242424;
+        --dark2:#303030;
         --backborder:#292929;
         --back:#242424;
         --color:#ff6600;
-        --color2:#a8531a;
+        --color2:#bd4b00;
         --ccc:#ccc;
         --tranback: rgba(41, 41, 41,.4);
         --tranborder:rgba(255, 102, 0,.4);
         --brodernotran:#ff6600;
+        --red:#b30000;
     }
 }
 @media (prefers-color-scheme: light){
     :root{
-        --border:#d4d4d4;
+        --border:#dbdbdbdb;
+        --border2:#c7c7c7db;
         --light:#242424;
         --dark:#fff;
         --backborder:#f2f2f2;
         --back:#fff;
-        --color:#ff6600;
-        --color2:#a8531a;
+        --color:#ff7214;
+        --color2:#cc5200;
         --ccc:#ccc;
         --darkback: rgba(41, 41, 41,.6);
         --tranback: rgba(204, 204, 204,.6);
@@ -68,6 +72,17 @@ body{
     filter:brightness(85%);
 }
 
+
+.title{
+    position:fixed;
+    background:var(--dark);
+    width:350px;
+    text-align:center;
+    left:201px;
+    height:42px;
+    font-size:16px;
+    border-right: .5px solid var(--border);
+}
 .side,sendside{
     float:left;
     position:fixed;
@@ -77,78 +92,119 @@ body{
     height:100%;
     width:200px;
     border-right: .5px solid var(--border);
+    overflow-y:scroll;
 }
 .side a,sendside a{
     height:35px;
     padding:3px;
     display:block;
-    border-left: 2px solid var(--dark);
     line-height:35px;
-    transition:.2s all;
+    transition:.2s;
 }
 
 .sidea,sendsidea{
     cursor:pointer;
     color:var(--light);
     text-decoration:none;
+    background:var(--backborder);
+    outline:1px solid var(--border);
+    margin:7px;
+    border-radius:5px;
 }
-.sidea:hover,sendsidea:hover{
-    background:var(--tranborder);
-    border-left: 2px solid var(--color);
+.sidea:where(:hover),sendsidea:where(:hover){
+    filter:brightness(85%);
+    outline-color:var(--border2);
+}
+.sidea:where(:focus),sendsidea:where(:focus){
+    outline-color:var(--color);
 }
 
 .top{
     color:#242424;
+    border:2px solid var(--color2);
+    font-size:16px;
     position:fixed;
     top:0px;
     left:0px;
-    width:100%;
-    height:25px;
+    width:calc(100% - 4px);
+    height:21px;
     background:var(--color);
-    line-height:25px;
+    line-height:21px;
     font-weight:500;
+    border-radius:0px 0px 5px 5px;
 }
 
+.mail2{
+    overflow-y: scroll;
+    float:left;
+    position:fixed;
+    top:31px;
+    left:201px;
+    background:var(--dark);
+    width:350px;
+    height:100%;
+    border-right: .5px solid var(--border);
+}
 .mail{
     overflow-y: scroll;
     float:left;
     position:fixed;
-    top:25px;
-    left:201px;
+    top:67px;
     background:var(--dark);
-    width:300px;
-    height:100%;
-    border-right: .5px solid var(--border);
+    width:350px;
+    height:calc(100% - 75px);
+    margin-bottom:150px;
 }
 
-.mail a{
-    padding:3px 5px;
-    display:block;
-    border-left: 2px solid var(--dark);
-    line-height:35px;
-    transition:.2s all;
+
+@keyframes load{
+    from{scale:1;}
+    70%{scale:.95;}
+    to{scale:1;}
 }
 
 .maila{
-    height:100px;
-    border-bottom: .5px solid var(--border);
+    margin:10px;
+    display:block;
+    line-height:35px;
+    transition:.2s all;
+    width:calc(100% - 20px);
+    height:110px;
+    border-radius:5px;
     text-align:left;
     cursor:pointer;
     data-select:none;
+    background:var(--backborder);
+    transition:.2s;
+    padding:3px 5px;
+    overflow:hidden;
+    white-space: nowrap;
+    user-select:none;
+    border:none;
+    color:var(--light);
+    outline:1px solid var(--border);
+    animation:load 2s ease alternate;
 }
+
 .maila:hover{
-    background:var(--tranborder);
-    border-left: 2px solid var(--color);
+    filter:brightness(85%);
+    outline-color:var(--border2);
+}
+.maila:where(:focus, :active){
+    outline:2px solid var(--color);
 }
 
 .username{
     height:25px;
+    line-height:25px;
     font-size:13px;
+    line-height:25px;
 }
 .about{
     font-weight:700;
     font-size:16px;
     height:25px;
+    line-height:25px;
 }
 
 
@@ -156,6 +212,7 @@ body{
 .desc{
     font-size:13px;
     height:25px;
+    line-height:25px;
     overflow:hidden;
     text-overflow:ellipsis;
 }
@@ -163,11 +220,12 @@ body{
 .read{
     position:fixed;
     top:25px;
-    left:502px;
+    left:552px;
     background:var(--dark);
     height:100%;
     text-align:left;
-    width:calc(100% - 502px);
+    width:calc(100% - 552px);
+    overflow-y:scroll;
 }
 
 .read a{
@@ -233,21 +291,23 @@ body{
 .send{
     cursor:pointer;
     color:#fff;
-    border-radius:10px;
+    border-radius:8px;
     border:none;
     background:var(--color);
     position:fixed;
     right:10px;
     bottom:5px;
-    width:200px;
+    width:300px;
     height:35px;
     right: 5px;
     font-weight:600;
-    transition:.2s all;
+    transition:.2s;
     user-select:none;
+    border:2px solid var(--color2);
 }
 .send:hover{
-    background:var(--tranborder)
+    filter:brightness(85%);
+    scale:0.98;
 }
 
 .topmake{
@@ -263,6 +323,7 @@ body{
 }
 
 .delete{
+    outline:1px solid var(--border);
     cursor:pointer;
     border-radius:5px;
     position:fixed;
@@ -276,11 +337,13 @@ body{
     user-select:none;
 }
 .delete:hover{
-    color:#b80000;
+    color:var(--red);
+    outline:1px solid var(--red);
 }
 
 .block{
     cursor:pointer;
+    outline:1px solid var(--border);
     border-radius:5px;
     position:fixed;
     right:50px;
@@ -293,6 +356,7 @@ body{
     user-select:none;
 }
 .block:hover{
+    outline:1px solid var(--color);
     color:var(--color);
 }
 
@@ -344,15 +408,19 @@ body{
 
 @media (max-width: 800px){
     .side{
-        width:100px;
+        width:130px;
         font-size:13px;
         height:410px;
         border-bottom:1px solid var(--border);
         
     }
+    .title{
+        width:calc(100% - 131px);
+        left:131px;
+    }
     .mail{
-        left:101px;
-        width:calc(100% - 101px);
+        left:131px;
+        width:calc(100% - 131px);
         height:410px;
         border-bottom:1px solid var(--border);
     }
@@ -363,16 +431,16 @@ body{
         width:100%;
     }
     .sendto{
-        left:101px;
-        width:calc(100% - 101px);
+        left:131px;
+        width:calc(100% - 131px);
     }
     .message{
-        left:101px;
-        width:calc(100% - 101px);
+        left:131px;
+        width:calc(100% - 131px);
     }
     .topmake{
-        left:101px;
-        width:calc(100% - 101px);
+        left:131px;
+        width:calc(100% - 131px);
     }
     .block_it{
         width:160px;

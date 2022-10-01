@@ -20,7 +20,7 @@
           <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Menu</a>
           <a class="sidea" href="/home">Inbox</a>
           <a class="sidea" href="/write">New</a>
-          <a class="sidea" style="border-left: 2px solid var(--color);" href="sent">Sent</a>
+          <a class="sidea" style="outline:1px solid var(--color);" href="sent">Sent</a>
             <a class="sidea" href="/clear">Clear Inbox</a>
             <a class="sidea" href="/users">Block A User</a>
             <a class="sidea" href="https://booogle-two.goodvessel92551.repl.co/">Go to Booogle</a>
@@ -28,9 +28,9 @@
             <a class="sidea" href="https://replit.com/@GoodVessel92551">Follow Me</a>
             <a class="sidea" href="__repl">Like</a>
         </div>
-        <div class="mail">
-            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);height:35px;">Sent</a>
-            <div id="mail"><div>
+        <div class="mail2">
+            <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);height:35px;" class="title">Sent</a>
+            <div class="mail" id="mail"><div>
         </div>
         <div class="read">
             <a style="font-size:20px;font-weight:500;border-bottom: .5px solid var(--border);">Mail</a>
@@ -47,17 +47,39 @@
         var num = 0
         var mail, id
         var i = 0
+        var delay = (emails.length/5)*0.3+0.3
         function read(a) {
-            document.getElementById("from").innerHTML = "To: "+emails[5*a]
-            document.getElementById("about").innerHTML = "About: "+emails[5*a+2]
+            document.getElementById("from").innerText= "To: "+emails[5*a]
+            document.getElementById("about").innerText = "About: "+emails[5*a+2]
             desc = emails[5*a+3].replace(/\n/g,"<br>")
-            document.getElementById("desc").innerHTML = desc
+            document.getElementById("desc").innerText = desc
             id = emails[5*a+4]
         }
         function make() {
             mail = document.getElementById("mail")
             while (i < emails.length) {
-                mail.innerHTML = '<a class="maila" onclick="read('+num+')"><div class="username">'+emails[i++]+'</div><div class="about">'+emails[i+1]+'</div><div class="desc">'+emails[i=i+2]+'</div></a>'+ mail.innerHTML
+                var maila = document.createElement('button')
+                var username = document.createElement('div')
+                var about = document.createElement('div')
+                var desc = document.createElement('div')
+                maila.id = num
+                maila.classList.add("maila")
+                username.classList.add("username")
+                about.classList.add("about")
+                desc.classList.add("desc")
+                maila.style.animationDelay = delay+"s"
+                delay -= 0.3
+                username.innerText = emails[i++]
+                about.innerText = emails[i++]
+                desc.innerText = emails[i++]
+                maila.appendChild(username)
+                maila.appendChild(about)
+                maila.appendChild(desc)
+                mail.insertBefore(maila,mail.children[0])
+				maila.addEventListener("click",(e) => {
+                    current = e.target.id
+                    read(current)
+				})
                 num++
                 i=i+2
                 read(num-1)
